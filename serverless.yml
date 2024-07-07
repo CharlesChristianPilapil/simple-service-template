@@ -1,0 +1,71 @@
+service: project-service
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  timeout: 30
+  environment:
+    DB_HOST: localhost
+    DB_NAME: test
+    DB_USER: root
+    DB_PASSWORD: "Hatdug1969"
+
+plugins:
+  - serverless-prune-versions
+  - serverless-esbuild
+  - serverless-offline
+
+custom:
+  prune:
+    automatic: true
+    number: 3
+
+functions:
+  add:
+    handler: src/handlers/add.handler
+    events:
+      - http:
+          path: /add
+          method: post
+
+  view:
+    handler: src/handlers/view.handler
+    events:
+      - http:
+          path: /view
+          method: get
+
+  edit:
+    handler: src/handlers/edit.handler
+    events:
+      - http:
+          path: /edit
+          method: put
+
+  remove:
+    handler: src/handlers/remove.handler
+    events:
+      - http:
+          path: /remove
+          method: delete
+
+  search:
+    handler: src/handlers/search.handler
+    events:
+      - http:
+          path: /search
+          method: post
+  sort:
+    handler: src/handlers/sort.handler
+    events:
+      - http:
+          path: /sort
+          method: post
+
+  add-multiple:
+    handler: src/handlers/add-multiple.handler
+    events:
+      - http:
+          path: /add-multiple
+          method: post
